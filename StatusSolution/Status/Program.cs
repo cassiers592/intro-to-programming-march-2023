@@ -25,10 +25,20 @@ builder.Services.AddMarten(options =>
 
 var app = builder.Build();
 
-app.MapGet("/status", () =>
+app.MapGet("/status", async (IDocumentSession db) =>
 {
-    var statusMessage = new StatusMessage(Guid.NewGuid(), "Looks Good", DateTimeOffset.Now);
-    return Results.Ok(statusMessage);
+    var response = await db.Query<StatusMessage>()
+    .OrderByDescending(sm => sm.When)
+    .FirstOrDefaultAsync();
+
+    if (response == null)
+    {
+        return Results.Ok(new StatusMessage(Guid.NewGuid(), "No status to report", DateTimeOffset.Now));
+    }
+    else
+    {
+        return Results.Ok(response);
+    }
 });
 
 app.MapPost("/status", async (StatusChangeRequest request, IDocumentSession db) =>
