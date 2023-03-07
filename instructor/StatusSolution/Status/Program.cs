@@ -30,6 +30,7 @@ var app = builder.Build();
 
 app.UseCors();
 
+// this can be called by anyone - allow anonymous
 app.MapGet("/status", async (IDocumentSession db) =>
 {
     var response = await db.Query<StatusMessage>()
@@ -47,6 +48,7 @@ app.MapGet("/status", async (IDocumentSession db) =>
     }
 });
 
+// we have to know who you are - "Authentication vs. Authorization"
 app.MapPost("/status", async (StatusChangeRequest request, IDocumentSession db) =>
 {
     // save this in the database 
