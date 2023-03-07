@@ -26,7 +26,31 @@ public class DemoTests
     public void CanAddAnyTwoIntegers(int a, int b, int expected)
     {
         int answer = a + b;
+       
         Assert.Equal(expected, answer);
+
+       
+        
+    }
+
+    [Fact]
+    public void BasicOOPStuff()
+    {
+        string myName = "    Jeff";
+        string trimmedName = myName.TrimStart();
+
+        Assert.Equal("Jeff", trimmedName);
+        Assert.Equal("    Jeff", myName);
+
+        int myAge = 52;
+
+        Customer bob = new Customer();
+
+        // what is our PROMISE to people using this thing.
+
+        Assert.Equal(5000, bob.GetCurrentAvailableCredit());
+        bob.IncreaseAvailableCredit(50, DateTimeOffset.Now);
+        Assert.Equal(5050, bob.GetCurrentAvailableCredit());
     }
 }
 
