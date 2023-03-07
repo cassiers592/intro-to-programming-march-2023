@@ -28,4 +28,14 @@ public class DemoTests
         int answer = a + b;
         Assert.Equal(expected, answer);
     }
+
+    [Fact]
+    public void CustomerTest()
+    {
+        Customer bob = new Customer();
+
+        Assert.Equal(5000, bob.GetCurrentAvailableCredit());
+        bob.IncreaseAvailableCredit(50);
+        Assert.Equal(5050, bob.GetCurrentAvailableCredit());
+    }
 }
