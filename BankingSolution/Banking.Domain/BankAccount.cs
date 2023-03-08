@@ -4,7 +4,8 @@ public class BankAccount
 {
     private decimal _balance = 5000;
 
-    public void Deposit(decimal amountToDeposit)
+    // virtual allows method to be overwritten 
+    public virtual void Deposit(decimal amountToDeposit)
     {
         _balance += amountToDeposit;
     }
