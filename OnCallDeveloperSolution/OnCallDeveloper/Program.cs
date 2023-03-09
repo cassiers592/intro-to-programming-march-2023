@@ -1,4 +1,6 @@
 
+using OnCallDeveloperApi;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -8,7 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddSingleton<IProvideTheBusinessClock, TwentyFourHourBusinessClock>();
+builder.Services.AddSingleton<ISystemTime, SystemTime>();
+builder.Services.AddSingleton<IProvideTheBusinessClock, StandardBusinessClock>();
 
 var app = builder.Build();
 
