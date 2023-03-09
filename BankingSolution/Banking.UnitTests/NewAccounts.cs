@@ -1,5 +1,6 @@
 ﻿using Banking.Domain;
 using Banking.UnitTests.TestDoubles;
+using Moq;
 
 namespace Banking.UnitTests;
 
@@ -9,7 +10,7 @@ public class NewAccounts
     public void NewAccountHasCorrectOpeiningBalance()
     {
         // Given
-        BankAccount account = new BankAccount(new DummyBonusCalculator());
+        BankAccount account = new BankAccount(new Mock<ICalculateBonuses>().Object);
 
         // When
         decimal balance = account.GetBalance();
