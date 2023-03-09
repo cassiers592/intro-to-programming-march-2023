@@ -1,5 +1,8 @@
 ﻿
 using Alba;
+using Microsoft.Extensions.DependencyInjection;
+using Moq;
+using OnCallDeveloperApi.Controllers;
 using OnCallDeveloperApi.Models;
 
 namespace OnCallDeveloperApi.IntegrationTests;
@@ -10,7 +13,16 @@ public class OnCallDeveloperResourceTests
     public async Task CanGetOnCallDeveloperDuringBusinessHours()
     {
         // "Host" for our API our API will be up and running.
-        await using var host = await AlbaHost.For<Program>();
+        await using var host = await AlbaHost.For<Program>(builder =>
+        {
+            var stubbedBusinessClock = new Mock<IProvideTheBusinessClock>();
+            stubbedBusinessClock.Setup(clock => clock.IsDuringBusinessHours()).Returns(true);
+
+            builder.ConfigureServices(services =>
+            {
+                services.AddSingleton<IProvideTheBusinessClock>(stubbedBusinessClock.Object);
+            });
+        }); 
 
         // Scenarios  - 
         var response = await host.Scenario(api =>
@@ -34,7 +46,17 @@ public class OnCallDeveloperResourceTests
     public async Task CanGetOnCallDeveloperOutsideBusinessHours()
     {
         // "Host" for our API our API will be up and running.
-        await using var host = await AlbaHost.For<Program>();
+        await using var host = await AlbaHost.For<Program>(builder =>
+        {
+            var stubbedBusinessClock = new Mock<IProvideTheBusinessClock>();
+            stubbedBusinessClock.Setup(clock => clock.IsDuringBusinessHours()).Returns(false);
+
+            builder.ConfigureServices(services =>
+            {
+                services.AddSingleton<IProvideTheBusinessClock>(stubbedBusinessClock.Object);
+            });
+        });
+
 
         // Scenarios  - 
         var response = await host.Scenario(api =>
