@@ -1,18 +1,27 @@
 ﻿
 using Banking.Domain;
 using Banking.UnitTests.TestDoubles;
+using Moq;
 
 namespace Banking.UnitTests;
 
 public class BankAccountUsesBonusCalculator
 {
     [Fact]
-    public void IntegratesBonusCalculator()
+    public void IntegratesWithBonusCalculatorWithStubbedObject()
     {
-        var bankAccount = new BankAccount(new StubbedBonusCalculator());
+        // Given
+        var stubbedBonusCalculator = new Mock<ICalculateBonuses>(); // programmable object that looked like it can calculate bonuses
+        var bankAccount = new BankAccount(stubbedBonusCalculator.Object);
+        var openingBalance = bankAccount.GetBalance();
+        var amountOfDeposit = 212.83M;
 
-        bankAccount.Deposit(212.83M);
+        stubbedBonusCalculator.Setup(x => x.CalculateBankAccountDepositBonusFor(openingBalance, amountOfDeposit)).Returns(12M);
 
-        Assert.Equal(5224.83M, bankAccount.GetBalance());
+        // When
+        bankAccount.Deposit(amountOfDeposit);
+
+        // Then
+        Assert.Equal(openingBalance + amountOfDeposit + 12M, bankAccount.GetBalance());
     }
 }
