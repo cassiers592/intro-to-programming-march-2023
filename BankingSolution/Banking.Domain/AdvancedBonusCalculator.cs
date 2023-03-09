@@ -1,10 +1,9 @@
 ﻿namespace Banking.Domain;
 
-public class StandardBonusCalculator : ICalculateBonuses
+public class AdvancedBonusCalculator : ICalculateBonuses
 {
-
     public decimal CalculateBankAccountDepositBonusFor(decimal accountCurrentBalance, decimal amountOfDeposit)
     {
-        return accountCurrentBalance >= 5000M ? amountOfDeposit * 0.10M : 0;
+        return 0;
     }
 }
