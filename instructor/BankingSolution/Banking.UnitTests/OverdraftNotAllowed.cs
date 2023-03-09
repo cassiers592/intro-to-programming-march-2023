@@ -1,5 +1,7 @@
 ﻿
 using Banking.Domain;
+using System.Security.Principal;
+using Xunit.Sdk;
 
 namespace Banking.UnitTests;
 
@@ -38,5 +40,38 @@ public class OverdraftNotAllowed
             account.Withdraw(account.GetBalance() + .01M);
 
         });
+
+
+        //var rightExecptionThrow = ExceptionHelpers.Throws<OverdraftException>(() =>
+        //{
+        //    account.Withdraw(account.GetBalance() + .01M);
+        //}); 
+
+        //Assert.True(rightExecptionThrow);
+    }
+}
+
+
+public class ExceptionHelpers 
+{
+    public static bool Throws<TException>(Action suspectCode) 
+        where TException : Exception // Generic Constraint
+    {
+        var rightExceptionThrown = false;
+        try
+        {
+            suspectCode();
+        }
+        catch (TException)
+        {
+
+            rightExceptionThrown = true;
+        }
+        return rightExceptionThrown;
+    }
+
+    public static string FormatName(string first, string last)
+    {
+        return $"{last}, {first}";
     }
 }
