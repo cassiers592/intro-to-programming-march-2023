@@ -71,7 +71,7 @@ public class Collections
             HourlyRate = 28.85M
         };
 
-        var workers = new List<Worker>
+        var workers = new List<IProvidePayInformation>
         {
             bob,
             jeff
@@ -83,27 +83,28 @@ public class Collections
     }
 }
 
-public abstract class Worker
+public interface IProvidePayInformation
+{
+    decimal GetPay();
+}
+public class Employee : IProvidePayInformation
 {
     public string Name { get; set; } = string.Empty;
-    public abstract decimal GetPay();
-}
-public class Employee : Worker
-{
     public decimal Salary { get; set; }
 
-    public override decimal GetPay()
+    public decimal GetPay()
     {
         return Salary;
     }
 }
 
-public class Contractor : Worker
+public class Contractor : IProvidePayInformation
 {
+    public string Name { get; set; } = string.Empty;
     public decimal HourlyRate { get; set; }
 
-    public override decimal GetPay()
+    public decimal GetPay()
     {
-        return HourlyRate;
+        return HourlyRate * 40 *52;
     }
 }
