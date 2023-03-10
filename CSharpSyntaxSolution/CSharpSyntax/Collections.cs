@@ -92,7 +92,7 @@ public class Employee : IProvidePayInformation
     public string Name { get; set; } = string.Empty;
     public decimal Salary { get; set; }
 
-    public decimal GetPay()
+    decimal IProvidePayInformation.GetPay()
     {
         return Salary;
     }
@@ -103,8 +103,8 @@ public class Contractor : IProvidePayInformation
     public string Name { get; set; } = string.Empty;
     public decimal HourlyRate { get; set; }
 
-    public decimal GetPay()
+    decimal IProvidePayInformation.GetPay()
     {
-        return HourlyRate * 40 *52;
+        return HourlyRate * 40 * 52;
     }
 }
