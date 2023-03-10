@@ -9,7 +9,7 @@ public class StringCalculatorTests
     {
         // These tests have nothing to do w/ the logger so we use a dummy test double
         // dummy often created inline in constructor
-        _calculator = new StringCalculator(new Mock<ILogger>().Object);
+        _calculator = new StringCalculator(new Mock<ILogger>().Object, new Mock<IWebService>().Object);
     }
 
     [Fact]
