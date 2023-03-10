@@ -81,6 +81,34 @@ public class Collections
             person.GetPay();
         }
     }
+
+    [Fact]
+    public void Dictionaries()
+    {
+        var myFriends = new Dictionary<char, string>
+        {
+            { 's', "Sam" },
+            { 'd', "David" }
+        };
+
+        myFriends['s'] = "Sean";
+
+        Assert.Equal("Sean", myFriends['s']);
+
+        foreach(KeyValuePair<char,string> kvp in myFriends)
+        {
+        }
+
+        foreach(var key in myFriends.Keys)
+        {
+
+        }
+
+        foreach(var value in myFriends.Values)
+        {
+
+        }
+    }
 }
 
 public interface IProvidePayInformation
