@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { OnCallDeveloperResponseModel } from 'src/app/models/oncalldeveloper';
 
 @Component({
   selector: 'app-support',
@@ -7,15 +9,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./support.component.css']
 })
 export class SupportComponent {
-  // client:HttpClient;
-
-  // constructor(client:HttpClient) {
-  //   this.client = client;
-  // }
-
-  // OR Equivalently:
+  onCallDeveloper$: Observable<OnCallDeveloperResponseModel>;
 
   constructor(client:HttpClient) {
-    client.get('http://localhost:1338/oncalldeveloper').subscribe(response => console.log('Got the response', response));
+    this.onCallDeveloper$ = client.get<OnCallDeveloperResponseModel>('http://localhost:1338/oncalldeveloper');
   }
 }
