@@ -10,6 +10,9 @@ import { SupportComponent } from './components/support/support.component';
 import { HttpClientModule } from '@angular/common/http';
 import { OnCallDataService } from './services/oncall-data-services';
 import { CounterModule } from './features/counter/counter.module';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './state';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -24,6 +27,8 @@ import { CounterModule } from './features/counter/counter.module';
     AppRoutingModule,
     HttpClientModule,
     CounterModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument(),
   ],
   providers: [OnCallDataService],
   bootstrap: [AppComponent],
