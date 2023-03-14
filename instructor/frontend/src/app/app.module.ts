@@ -7,21 +7,24 @@ import { MastheadComponent } from './components/masthead/masthead.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { SupportComponent } from './components/support/support.component';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { OnCallDataService } from './services/oncall-data.service';
+import { CounterModule } from './features/counter/counter.module';
 @NgModule({
   declarations: [
     AppComponent,
     MastheadComponent,
     DashboardComponent,
     NavigationComponent,
-    SupportComponent
+    SupportComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    CounterModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [OnCallDataService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
