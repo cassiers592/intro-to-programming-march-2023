@@ -4,10 +4,20 @@
     class="btn btn-danger">
     -
   </button>
-  <span>{{ current }}</span>
+  <span>{{ current$ | async }}</span>
   <button
     (click)="increment()"
     class="btn btn-success">
     +
   </button>
 </div>
+<div>
+  <button
+    [disabled]="resetDisabled$ | async"
+    (click)="reset()"
+    class="btn btn-primary">
+    Reset
+  </button>
+</div>
+
+<app-counter-prefs />
