@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { selectCounterCurrent } from './state';
+import { selectCounterCurrent, selectCounterResetDisabled } from './state';
 import { counterEvents } from './state/actions/counter.actions';
 
 @Component({
@@ -11,6 +11,7 @@ import { counterEvents } from './state/actions/counter.actions';
 export class CounterComponent {
   // make this an observable of some data in the store
   current$ = this.store.select(selectCounterCurrent);
+  resetDisabled$ = this.store.select(selectCounterResetDisabled);
 
   constructor(private readonly store: Store) {}
 
@@ -22,5 +23,9 @@ export class CounterComponent {
   decrement() {
     // dispatch an action to the store to say that the count was decremented
     this.store.dispatch(counterEvents.decrementButtonClicked());
+  }
+
+  reset() {
+    this.store.dispatch(counterEvents.resetButtonClicked());
   }
 }

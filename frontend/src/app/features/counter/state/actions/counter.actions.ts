@@ -5,5 +5,6 @@ export const counterEvents = createActionGroup({
   events: {
     'Increment Button Clicked': emptyProps(),
     'Decrement Button Clicked': emptyProps(),
+    'Reset Button Clicked': emptyProps(),
   },
 });

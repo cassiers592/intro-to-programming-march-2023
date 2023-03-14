@@ -23,4 +23,5 @@ export const reducer = createReducer(
     ...s,
     current: s.current - 1,
   })),
+  on(counterEvents.resetButtonClicked, () => initialState),
 );
