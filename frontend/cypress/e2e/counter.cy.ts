@@ -30,13 +30,18 @@ describe('The Counter Page', () => {
       cy.get('[data-testid="current-count"]').should('contain.text', '5');
     });
 
-    it('maintains the counter when navigating to a different page', () => {
+    it('displays the counter in the masthead', () => {
       cy.get('[data-testid="increment-btn"]').click();
-      cy.visit('/');
       cy.get('[data-testid="current-display').should(
         'contain.text',
         '(Current is 1)',
       );
+    });
+
+    it('maintains the counter state after a refresh', () => {
+      cy.get('[data-testid="increment-btn"]').click();
+      cy.visit('/counter');
+      cy.get('[data-testid="current-count"]').should('contain.text', '1');
     });
   });
 });
