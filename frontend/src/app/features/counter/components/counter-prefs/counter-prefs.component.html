@@ -1,8 +1,10 @@
 <div
+  data-testid="count-by"
   class="btn-group"
   role="group"
   aria-label="Count By Prefs">
   <button
+    data-testid="1"
     (click)="setCountBy(1)"
     type="button"
     [disabled]="(by$ | async) === 1"
@@ -10,6 +12,7 @@
     1
   </button>
   <button
+    data-testid="3"
     (click)="setCountBy(3)"
     type="button"
     [disabled]="(by$ | async) === 3"
@@ -17,6 +20,7 @@
     3
   </button>
   <button
+    data-testid="5"
     (click)="setCountBy(5)"
     type="button"
     [disabled]="(by$ | async) === 5"

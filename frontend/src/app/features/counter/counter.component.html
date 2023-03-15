@@ -1,11 +1,13 @@
 <div>
   <button
+    data-testid="decrement-btn"
     (click)="decrement()"
     class="btn btn-danger">
     -
   </button>
-  <span>{{ current$ | async }}</span>
+  <span data-testid="current-count">{{ current$ | async }}</span>
   <button
+    data-testid="increment-btn"
     (click)="increment()"
     class="btn btn-success">
     +
@@ -14,6 +16,7 @@
 <app-counter-prefs />
 <div>
   <button
+    data-testid="reset-btn"
     [disabled]="resetDisabled$ | async"
     (click)="reset()"
     class="btn btn-primary">
