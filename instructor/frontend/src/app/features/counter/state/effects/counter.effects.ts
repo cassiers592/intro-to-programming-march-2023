@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, concatLatestFrom, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-
-import { map, tap, filter } from 'rxjs';
+import { z } from 'zod';
+import { map, tap, filter, catchError, of } from 'rxjs';
 import { selectCounterBranch } from '..';
 import {
   counterCommands,
@@ -12,6 +12,14 @@ import {
 import { CounterState } from '../reducers/counter.reducer';
 @Injectable()
 export class CounterEffects {
+  private readonly CountDataSchema = z.object({
+    current: z.number(),
+    by: z.union([
+      z.literal(1),
+      z.literal(3),
+      z.literal(5),
+    ]),
+  });
   // logItAll$ = createEffect(
   //   () => {
   //     return this.actions$.pipe(tap((action) => console.log(action.type))); // =>
@@ -27,10 +35,16 @@ export class CounterEffects {
       map(() => localStorage.getItem('counter-state')), // string | null
       filter((storedValue) => storedValue !== null), // stop here if it's null - we'll stick with initialState => string
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      map((theString) => JSON.parse(theString!) as CounterState), // type coercions are a MAJOR code smell
+      map((theString) => JSON.parse(theString!)), // type coercions are a MAJOR code smell
+      map((susObject) => this.CountDataSchema.parse(susObject) as CounterState),
       map((counterState) =>
         counterDocuments.counterState({ payload: counterState }),
-      ), // the action to send to the store.
+      ),
+      catchError(() => {
+        console.log('We have ourselves a hacker here!');
+        localStorage.clear();
+        return of({ type: 'Localstorage Error' });
+      }), // the action to send to the store.
     );
   });
 
