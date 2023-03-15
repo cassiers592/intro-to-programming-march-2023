@@ -11,6 +11,7 @@ import { featureName, reducers } from './state';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientModule } from '@angular/common/http';
 import { ItemsEffects } from './state/effects/items.effects';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {
@@ -51,6 +52,7 @@ const routes: Routes = [
     StoreModule.forFeature(featureName, reducers),
     EffectsModule.forFeature([ItemsEffects]),
     HttpClientModule,
+    ReactiveFormsModule,
   ],
 })
 export class LearningModule {}
