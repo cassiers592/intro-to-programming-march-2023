@@ -29,5 +29,14 @@ describe('The Counter Page', () => {
       cy.get('[data-testid="increment-btn"]').click();
       cy.get('[data-testid="current-count"]').should('contain.text', '5');
     });
+
+    it('maintains the counter when navigating to a different page', () => {
+      cy.get('[data-testid="increment-btn"]').click();
+      cy.visit('/');
+      cy.get('[data-testid="current-display').should(
+        'contain.text',
+        '(Current is 1)',
+      );
+    });
   });
 });
