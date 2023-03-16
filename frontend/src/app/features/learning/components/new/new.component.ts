@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { ItemEntityRequestModel } from '../../models/items.models';
-import { itemEvents, itemsCommands } from '../../state/actions/items.actions';
+import { itemEvents } from '../../state/actions/items.actions';
 
 @Component({
   selector: 'app-new',

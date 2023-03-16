@@ -1,8 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, switchMap } from 'rxjs';
-import { itemsCommands, itemsDocuments } from '../actions/items.actions';
+import { map, mergeMap, switchMap } from 'rxjs';
+import {
+  itemEvents,
+  itemsCommands,
+  itemsDocuments,
+} from '../actions/items.actions';
 import { ItemEntity } from '../reducers/items.reducer';
 
 @Injectable()
@@ -11,6 +15,25 @@ export class ItemsEffects {
   // add the new item
   // send that payload on the action to the API using a POST
   // when it comes to the API, turn it into a itemsDocument.item and send it to the reducers
+
+  additem$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(itemEvents.itemCreationRequested),
+      mergeMap(
+        (
+          a, // this (mergeMap ) is usually good for "non safe" operations (methods other than GET)
+        ) =>
+          this.client
+            .post<ItemEntity>(
+              'https://localhost:1340/learning-resources',
+              a.payload,
+            )
+            .pipe(
+              map((response) => itemsDocuments.item({ payload: response })),
+            ),
+      ),
+    );
+  });
 
   loadItems$ = createEffect(() => {
     return this.actions$.pipe(
