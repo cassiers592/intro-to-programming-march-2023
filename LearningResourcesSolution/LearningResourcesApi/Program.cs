@@ -1,4 +1,6 @@
 
+using LearningResourcesApi.Domain;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,6 +24,8 @@ builder.Services.AddDbContext<LearningResourcesDataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("resources"));
 });
+
+builder.Services.AddScoped<IManageLearningResources, EntityFrameworkResourceManager>();
 
 var app = builder.Build();
 
