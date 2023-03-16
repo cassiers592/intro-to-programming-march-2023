@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import { ItemEntityRequestModel } from '../../models/items.models';
+import { itemEvents, itemsCommands } from '../../state/actions/items.actions';
 
 @Component({
   selector: 'app-new',
@@ -28,6 +30,8 @@ export class NewComponent {
     }),
   });
 
+  constructor(private readonly store: Store) {}
+
   get name() {
     return this.form.controls.name;
   }
@@ -41,7 +45,8 @@ export class NewComponent {
   addIt() {
     // if the form is valid, dispatch an action
     if (this.form.valid) {
-      // TODO: Dispatch an Action
+      const payload = this.form.value as ItemEntityRequestModel;
+      this.store.dispatch(itemEvents.itemCreationRequested({ payload }));
     } else {
       // TODO:
     }
