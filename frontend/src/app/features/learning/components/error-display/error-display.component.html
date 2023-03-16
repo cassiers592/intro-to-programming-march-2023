@@ -3,4 +3,9 @@
   *ngIf="hasError$ | async">
   <h2>There was an Error</h2>
   <p>{{ errorMessage$ | async }}</p>
+  <button
+    (click)="clearError()"
+    class="btn btn-light">
+    Clear Error
+  </button>
 </div>

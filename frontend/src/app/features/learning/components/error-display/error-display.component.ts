@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectErrorMessage, selectHasError } from '../../state';
+import { errorsEvents } from '../../state/actions/errors.actions';
 
 @Component({
   selector: 'app-error-display',
@@ -12,4 +13,8 @@ export class ErrorDisplayComponent {
   errorMessage$ = this.store.select(selectErrorMessage);
 
   constructor(private readonly store: Store) {}
+
+  clearError() {
+    this.store.dispatch(errorsEvents.clearErrorClicked());
+  }
 }
