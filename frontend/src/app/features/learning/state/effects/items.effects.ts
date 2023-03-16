@@ -21,9 +21,9 @@ export class ItemsEffects {
     return this.actions$.pipe(
       ofType(itemEvents.itemCreationRequested),
       mergeMap(
-        (
-          a, // this (mergeMap ) is usually good for "non safe" operations (methods other than GET)
-        ) =>
+        // track all the pending requests, merge them together into this code when you respond
+        // this (mergeMap ) is usually good for "non safe" operations (methods other than GET)
+        (a) =>
           this.client
             .post<ItemEntity>(
               'https://localhost:1340/learning-resources',
@@ -43,6 +43,9 @@ export class ItemsEffects {
     return this.actions$.pipe(
       ofType(itemsCommands.loadTheItems),
       switchMap(() =>
+        // doesn't track previous requests - the last request is the one that will be handled
+        // not only doesn't track the earlier requests, it cancels them
+        // usually good for GET requests
         this.client
           .get<{ data: ItemEntity[] }>(
             'http://localhost:1340/learning-resources',
