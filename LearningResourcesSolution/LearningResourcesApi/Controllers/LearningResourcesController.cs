@@ -1,4 +1,6 @@
 ﻿
+using LearningResourcesApi.Domain;
+
 namespace LearningResourcesApi.Controllers;
 
 public class LearningResourcesController : ControllerBase
@@ -8,6 +10,36 @@ public class LearningResourcesController : ControllerBase
     public LearningResourcesController(LearningResourcesDataContext context)
     {
         _context = context;
+    }
+
+    [HttpPost("/learning-resources")]
+    public async Task<ActionResult<LearningResourceSummaryItem>> AddResources([FromBody] LearningResourcesCreateRequest request)
+    {
+        // Validate it... if it doesn't meet the invariants, return a 400
+        if(!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+
+        // Add it to the DB:
+        // turn the request into Doman.LearningResourcesEntity
+        var entity = new LearningResourcesEntity
+        {
+            // "Mapping" - AutoMapper can do this automatically
+            Name = request.Name,
+            Description = request.Description,
+            Link = request.Link,
+            WhenCreated = DateTime.Now
+        };
+        // tell our DataContext about it
+        _context.LearningResources.Add(entity);
+        // tell DataContext to save the data
+        await _context.SaveChangesAsync();
+
+        // Return a sucess status code
+        // with a copy of the new entity
+        var response = new LearningResourceSummaryItem(entity.ID.ToString(), entity.Name, entity.Description, entity.Link);
+        return Ok(response);
     }
 
     [HttpGet("/learning-resources")]
