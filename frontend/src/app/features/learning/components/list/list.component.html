@@ -3,10 +3,17 @@
   class="list-unstyled"
   *ngIf="items$ | async as items">
   <li
+    [attr.data-testid]="'card-' + item.id"
     class="card"
     *ngFor="let item of items">
-    <div class="card-header">{{ item.name }}</div>
-    <div class="card-body">
+    <div
+      data-testid="card-header"
+      class="card-header">
+      {{ item.name }}
+    </div>
+    <div
+      data-testid="card-body"
+      class="card-body">
       <p>{{ item.name }}</p>
       <p>{{ item.description }}</p>
       <p>{{ item.link }}</p>

@@ -48,8 +48,38 @@ describe('The Learning Resources Page', () => {
       cy.get('[data-testid="resource-list"]').should('exist');
     });
 
-    it('displays the resource name', () => {
-      cy.get('[data-testid="resource-list"]').should('contain', 'Google');
+    it('displays the resource name in card header', () => {
+      cy.get('[data-testid="resource-list"]')
+        .find('[data-testid="card-1"]')
+        .find('[data-testid="card-header"]')
+        .should('contain.text', 'Google');
+    });
+
+    it('displays the resource name in card body', () => {
+      cy.get('[data-testid="resource-list"]')
+        .find('[data-testid="card-1"]')
+        .find('[data-testid="card-body"]')
+        .should('contain.text', 'Google');
+    });
+
+    it('displays the resource description in card body', () => {
+      cy.get('[data-testid="resource-list"]')
+        .find('[data-testid="card-1"]')
+        .find('[data-testid="card-body"]')
+        .should('contain.text', 'Use this for GDD');
+    });
+
+    it('displays the resource link in card body', () => {
+      cy.get('[data-testid="resource-list"]')
+        .find('[data-testid="card-1"]')
+        .find('[data-testid="card-body"]')
+        .should('contain.text', 'https://www.google.com/');
+    });
+
+    it('does not have extra cards', () => {
+      cy.get('[data-testid="resource-list"]')
+        .find('[data-testid="card-2"]')
+        .should('not.exist');
     });
   });
 });
