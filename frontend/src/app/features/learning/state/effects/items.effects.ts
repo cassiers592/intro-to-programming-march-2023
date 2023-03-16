@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { map, mergeMap, switchMap } from 'rxjs';
+import { catchError, map, mergeMap, of, switchMap } from 'rxjs';
+import { errorsEvents } from '../actions/errors.actions';
 import {
   itemEvents,
   itemsCommands,
@@ -30,6 +31,9 @@ export class ItemsEffects {
             )
             .pipe(
               map((response) => itemsDocuments.item({ payload: response })),
+              catchError(() =>
+                of(errorsEvents.errorHappened({ message: 'That failed' })),
+              ),
             ),
       ),
     );
