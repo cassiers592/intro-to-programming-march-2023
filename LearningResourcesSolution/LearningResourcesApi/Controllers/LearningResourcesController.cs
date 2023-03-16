@@ -12,6 +12,20 @@ public class LearningResourcesController : ControllerBase
         _resourceManager = resourceManager;
     }
 
+    [HttpPost("/watched-learning-resources")]
+    public async Task<ActionResult> MoveToWatched([FromBody] LearningResourceSummaryItem request)
+    {
+        bool exists = await _resourceManager.MoveItemToWatchedAsync(request);
+        if (!exists)
+        {
+            return BadRequest();
+        }
+        else
+        {
+            return NoContent();
+        }
+    }
+
     [HttpDelete("/learning-resources/{resourceId:int}")]
     public async Task<ActionResult> Remove(int resourceId)
     {
@@ -39,5 +53,20 @@ public class LearningResourcesController : ControllerBase
     {
         LearningResourcesResponse response = await _resourceManager.GetCurrentResourcesAsync(token);
         return Ok(response);
+    }
+
+    [HttpGet("/learning-resources/{resourceId:int}")]
+    public async Task<ActionResult<LearningResourceSummaryItem>> GetById(int resourceId)
+    {
+        // returns either a 200 w/ item or 404
+        LearningResourceSummaryItem? response = await _resourceManager.GetResourceByIdAsync(resourceId);
+        if (response == null)
+        {
+            return NotFound();
+        }
+        else
+        {
+            return Ok(response);
+        }
     }
 }

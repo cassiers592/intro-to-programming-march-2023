@@ -26,18 +26,27 @@ public class EntityFrameworkResourceManager : IManageLearningResources
 
         // Return a sucess status code
         // with a copy of the new entity
-        var response = new LearningResourceSummaryItem(entity.ID.ToString(), entity.Name, entity.Description, entity.Link);
+        var response = new LearningResourceSummaryItem(entity.ID.ToString(), entity.Name, entity.Description, entity.Link, entity.HasBeenWatched);
         return response;
     }
 
     public async Task<LearningResourcesResponse> GetCurrentResourcesAsync(CancellationToken token)
     {
         var data = await _context.GetActiveLearningResources()
-            .Select(item => new LearningResourceSummaryItem(
-                item.ID.ToString(), item.Name, item.Description, item.Link))
+            .Select(item => MapFromDomain(item))
             .ToListAsync(token);
 
         var response = new LearningResourcesResponse(data);
+        return response;
+    }
+
+    public async Task<LearningResourceSummaryItem?> GetResourceByIdAsync(int resourceId)
+    {
+        var response = await _context.GetActiveLearningResources()
+            .Where(item => item.ID == resourceId)
+            .Select(item => MapFromDomain(item))
+            .SingleOrDefaultAsync();
+
         return response;
     }
 
@@ -48,6 +57,27 @@ public class EntityFrameworkResourceManager : IManageLearningResources
         {
             item.WhenRemoved = DateTime.Now;
             await _context.SaveChangesAsync();
+        }
+    }
+
+    private static LearningResourceSummaryItem MapFromDomain(LearningResourcesEntity item)
+    {
+        return new LearningResourceSummaryItem(item.ID.ToString(), item.Name, item.Description, item.Link, item.HasBeenWatched);
+    }
+
+    public async Task<bool> MoveItemToWatchedAsync(LearningResourceSummaryItem request)
+    {
+        var id = int.Parse(request.Id);
+        var item = await _context.GetActiveLearningResources().SingleOrDefaultAsync(item => item.ID == id);
+        if (item != null)
+        {
+            item.HasBeenWatched = true;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 }

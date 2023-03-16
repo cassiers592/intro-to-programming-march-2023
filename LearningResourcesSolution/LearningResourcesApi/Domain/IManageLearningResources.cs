@@ -4,5 +4,7 @@ public interface IManageLearningResources
 {
     Task<LearningResourceSummaryItem> AddResourceAsync(LearningResourcesCreateRequest request);
     Task<LearningResourcesResponse> GetCurrentResourcesAsync(CancellationToken token);
+    Task<LearningResourceSummaryItem?> GetResourceByIdAsync(int resourceId);
+    Task<bool> MoveItemToWatchedAsync(LearningResourceSummaryItem request);
     Task RemoveItemAsync(int resourceId);
 }
