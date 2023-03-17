@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: oncalldeveloper
-        image: oncalldeveloperapi:v0.1
+        image: oncalldeveloperapi:v0.2
         resources:
           limits:
             memory: "128Mi"
