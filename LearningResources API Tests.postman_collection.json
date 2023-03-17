@@ -1,0 +1,148 @@
+{
+	"info": {
+		"_postman_id": "9a2430ef-6b4f-4c7e-a479-ba5e95a7415f",
+		"name": "LearningResources API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get learning-resources",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1340/learning-resources",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1340",
+					"path": [
+						"learning-resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post learning-resources",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"REST in Practice\",\r\n    \"description\": \"Great Book on REST and API Design\",\r\n    \"link\": \"www.amazon.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1340/learning-resources",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1340",
+					"path": [
+						"learning-resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "delete a learning resource",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1340/learning-resources/11",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1340",
+					"path": [
+						"learning-resources",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get a specific learning-resource",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1340/learning-resources/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1340",
+					"path": [
+						"learning-resources",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post to watched resources",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"10\",\r\n    \"name\": \"REST in Practice\",\r\n    \"description\": \"Great Book on REST and API Design\",\r\n    \"link\": \"www.amazon.com\",\r\n    \"hasBeenWatched\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:1340/watched-learning-resources",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1340",
+					"path": [
+						"watched-learning-resources"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

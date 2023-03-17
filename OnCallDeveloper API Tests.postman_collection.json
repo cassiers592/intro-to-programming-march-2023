@@ -1,0 +1,27 @@
+{
+	"info": {
+		"_postman_id": "478b109f-ab8e-4477-a6d3-b5591cdb8d79",
+		"name": "OnCallDeveloper API Tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get oncalldeveloper",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:1338/oncalldeveloper",
+					"host": [
+						"localhost"
+					],
+					"port": "1338",
+					"path": [
+						"oncalldeveloper"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
