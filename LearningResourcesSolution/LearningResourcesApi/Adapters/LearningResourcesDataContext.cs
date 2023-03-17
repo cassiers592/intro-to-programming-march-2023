@@ -1,6 +1,4 @@
-﻿using LearningResourcesApi.Domain;
-using Microsoft.EntityFrameworkCore;
-
+﻿
 namespace LearningResourcesApi.Adapters;
 
 public class LearningResourcesDataContext : DbContext

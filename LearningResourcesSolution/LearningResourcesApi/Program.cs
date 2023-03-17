@@ -1,9 +1,22 @@
 
-using LearningResourcesApi.Domain;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+
+var apiUri = builder.Configuration.GetValue<string>("onCallApiUrl");
+if (apiUri == null)
+{
+    throw new Exception("Dont have an API URL! Don't start this service!");
+}
+builder.Services.AddHttpClient<OnCallDeveloperLookupApiAdapter>(client =>
+{
+    
+    client.BaseAddress = new Uri(apiUri);
+});
+
+builder.Services.AddScoped<ILookupOnCallDevelopers, ApiOnCallDeveloperLookup>();
 
 builder.Services.AddCors(config =>
 {
@@ -15,7 +28,11 @@ builder.Services.AddCors(config =>
     });
 });
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
+    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+});
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
