@@ -22,6 +22,24 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "get oncalldeveloper w/ kubernetes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/oncalldeveloper",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oncalldeveloper"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

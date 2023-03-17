@@ -143,6 +143,44 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Get status",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:1340/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "1340",
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get status w/ kubernetes",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/status",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
